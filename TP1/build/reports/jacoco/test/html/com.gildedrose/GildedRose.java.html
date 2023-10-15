@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GildedRose.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">gilded-rose-kata</a> &gt; <a href="index.source.html" class="el_package">com.gildedrose</a> &gt; <span class="el_source">GildedRose.java</span></div><h1>GildedRose.java</h1><pre class="source lang-java linenums">package com.gildedrose;
+
+class GildedRose {
+	Item[] items;
+
+<span class="fc" id="L6">	public GildedRose(Item[] items) {</span>
+<span class="fc" id="L7">		this.items = items;</span>
+<span class="fc" id="L8">	}</span>
+
+	//dans le cas ou items[i].name == &quot;Aged Brie&quot;
+	public void agedBrieQuality(int i){
+<span class="fc bfc" id="L12" title="All 2 branches covered.">		if (items[i].quality &lt; 50) </span>
+		{
+<span class="fc" id="L14">          items[i].quality = items[i].quality + 1;</span>
+    }
+
+<span class="fc" id="L17">    items[i].sellIn = items[i].sellIn - 1;</span>
+    //Pour éviter les &quot;Si&quot; imbriqués on utilise une condition &amp;&amp;
+<span class="fc bfc" id="L19" title="All 4 branches covered.">    if(items[i].sellIn&lt;0 &amp;&amp; items[i].quality&lt;50) </span>
+    {
+<span class="fc" id="L21">        items[i].quality = items[i].quality + 1;</span>
+    }
+
+<span class="fc" id="L24">  }</span>
+
+	public void ragnarosQuality(int i){
+<span class="fc" id="L27">		return;</span>
+	}
+
+	public void backstageQuality(int i){
+		/*
+            On a choisi de mettre les 'Si' à la suite les uns des autres pour éviter des imbrications et améliorer la lisibilité,
+            effectivement cela duplique légérement le code mais dans une méthode de cette taille là je pense que la différence est infime.
+            Comme en plus la méthode ajoute de la qualité plusieurs fois il fallait vérifier à chaques fois si elle ne dépassait pas 50.
+        */
+<span class="pc bpc" id="L36" title="1 of 2 branches missed.">		if (items[i].quality &lt; 50) </span>
+		{
+<span class="fc" id="L38">        items[i].quality = items[i].quality + 1;</span>
+    }
+    
+<span class="fc bfc" id="L41" title="All 4 branches covered.">    if (items[i].sellIn &lt; 11 &amp;&amp; items[i].quality &lt; 50) </span>
+    {
+<span class="fc" id="L43">        items[i].quality = items[i].quality + 1;</span>
+    }
+
+<span class="fc bfc" id="L46" title="All 4 branches covered.">    if (items[i].sellIn &lt; 6 &amp;&amp; items[i].quality &lt; 50) </span>
+    {
+<span class="fc" id="L48">        items[i].quality = items[i].quality + 1;</span>
+    }
+
+<span class="fc" id="L51">    items[i].sellIn = items[i].sellIn - 1;</span>
+
+<span class="fc bfc" id="L53" title="All 2 branches covered.">    if(items[i].sellIn&lt;0) </span>
+    {
+<span class="fc" id="L55">        items[i].quality = 0;</span>
+    }
+<span class="fc" id="L57">	}</span>
+
+	public void defaultObjectQuality(int i){
+<span class="fc bfc" id="L60" title="All 2 branches covered.">		if(items[i].quality&gt;0) {</span>
+<span class="fc" id="L61">        items[i].quality = items[i].quality - 1;</span>
+    }
+
+<span class="fc" id="L64">    items[i].sellIn = items[i].sellIn - 1;</span>
+
+<span class="fc bfc" id="L66" title="All 4 branches covered.">    if(items[i].sellIn&lt;0 &amp;&amp; items[i].quality&gt;0) </span>
+    {
+<span class="fc" id="L68">        items[i].quality = items[i].quality - 1;</span>
+    }
+<span class="fc" id="L70">	}</span>
+
+  public void conjuredQuality(int i) {
+<span class="pc bpc" id="L73" title="1 of 2 branches missed.">    if (items[i].quality &gt; 0) {</span>
+<span class="fc" id="L74">        int qualityDecrease = 2;</span>
+<span class="fc bfc" id="L75" title="All 2 branches covered.">        if (items[i].sellIn &lt;= 0) {</span>
+<span class="fc" id="L76">            qualityDecrease = 4;</span>
+        }
+<span class="fc" id="L78">        items[i].quality = Math.max(0, items[i].quality - qualityDecrease);</span>
+    }
+<span class="fc" id="L80">  }</span>
+
+    public void updateQuality(){
+<span class="fc bfc" id="L83" title="All 2 branches covered.">        for (int i = 0; i &lt; items.length; i++) {</span>
+            //Switch permettant d'effectuer un premier tri en fonction du nom de l'objet -&gt; Simplifie le code en cadrant les résultats
+<span class="fc bfc" id="L85" title="All 5 branches covered.">            switch (items[i].name) {</span>
+                case &quot;Aged Brie&quot;:
+<span class="fc" id="L87">                    agedBrieQuality(i);</span>
+<span class="fc" id="L88">                    break;</span>
+
+                //On note ce cas même si on effectue aucune action pour éviter le case default
+                case &quot;Sulfuras, Hand of Ragnaros&quot;:
+<span class="fc" id="L92">                	ragnarosQuality(i);</span>
+<span class="fc" id="L93">                    break;</span>
+
+                case &quot;Backstage passes to a TAFKAL80ETC concert&quot;:
+<span class="fc" id="L96">                	backstageQuality(i);</span>
+<span class="fc" id="L97">                    break;</span>
+                
+                case &quot;Conjured&quot;:
+<span class="fc" id="L100">                  conjuredQuality(i);</span>
+<span class="fc" id="L101">                    break;</span>
+
+                //Ce cas permettra de gérer tous les objets 'classiques' qui ne sont pas pris en compte dans les cas précédents
+                default :
+<span class="fc" id="L105">                    defaultObjectQuality(i);</span>
+            }
+        }
+<span class="fc" id="L108">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>
